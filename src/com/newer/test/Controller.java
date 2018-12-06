@@ -8,7 +8,7 @@ public class Controller implements Callback {
 
 	// 保存存储过程和结果的缓冲字符串
 	StringBuilder process = new StringBuilder("");
-	StringBuilder result = new StringBuilder("请先输入数字，进行计算");
+	StringBuilder result = new StringBuilder("请先输入数字");
 
 	// 定义了两个标志
 	boolean pointflag = true;
@@ -34,7 +34,7 @@ public class Controller implements Callback {
 				pointflag = false;
 			} else {
 				process.delete(0, process.length());
-				process.append("错误小数点，请重新输入");
+				process.append("错误小数点 .");
 				errorflag = true;
 			}
 		} else {
@@ -55,7 +55,8 @@ public class Controller implements Callback {
 		}
 		else if (inputNumber.isEmpty() || !opflag) {
 			process.delete(0, process.length());
-			process.append("错误运算符，请重新输入");
+			process.append("错误运算符");
+			process.append(op);
 			errorflag = true;
 		} else {
 			StringBuilder text = new StringBuilder("");
@@ -97,14 +98,14 @@ public class Controller implements Callback {
 		numberOp.clear();
 		process.delete(0, process.length());
 		result.delete(0, result.length());
-		result.append("请先输入数字，进行计算");
+		result.append("请先输入数字");
 	}
 	
 	public void myBack() {
 		if(numberOp.size()==0&&result.length()==1) {
 			result.delete(0, result.length());
 			inputNumber.pop();
-			result.append("请先输入数字，进行计算");
+			result.append("请先输入数字");
 			flag = true;
 		}
 		else if(!inputNumber.isEmpty()) {

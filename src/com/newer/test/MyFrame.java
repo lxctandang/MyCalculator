@@ -22,7 +22,7 @@ public class MyFrame extends JFrame {
 			"1", "2", "3", "+",
 			"0", "？",".", "=" };
 	private Callback callback;
-	private JLabel resultLabel = new JLabel("请先输入数字，进行计算");
+	private JLabel resultLabel = new JLabel("请先输入数字");
 	private JLabel processLabel = new JLabel("");
 	
 	/**
@@ -62,12 +62,12 @@ public void initFrame() {
         //两个标签按钮，显示运算过程和计算结果。
 		processLabel.setForeground(Color.WHITE);
 		processLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		processLabel.setFont(new Font("黑体", Font.PLAIN, 30));
+		processLabel.setFont(new Font("黑体", Font.PLAIN, 40));
 
 		
 		resultLabel.setForeground(Color.WHITE);
 		resultLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		resultLabel.setFont(new Font("黑体", Font.PLAIN, 30));
+		resultLabel.setFont(new Font("黑体", Font.PLAIN, 40));
 
 		//把两个标签添加到面板上。
 		labelPanel.add(processLabel);
