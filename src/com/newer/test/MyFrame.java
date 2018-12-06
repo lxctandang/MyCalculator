@@ -2,6 +2,7 @@ package com.newer.test;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -21,13 +22,13 @@ public class MyFrame extends JFrame {
 			"1", "2", "3", "+",
 			"0", "？",".", "=" };
 	private Callback callback;
-	private JLabel resultLabel = new JLabel("0");
+	private JLabel resultLabel = new JLabel("请先输入数字，进行计算");
 	private JLabel processLabel = new JLabel("");
 	
 	/**
 	 * Create the frame.
 	 */
-	public MyFrame() {
+	public MyFrame(Callback callback) {
 
 		// 给窗口进行初始化。
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,9 +39,13 @@ public class MyFrame extends JFrame {
 		backGroundPane.setBorder(new EmptyBorder(1, 1, 1, 1));
 		backGroundPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(backGroundPane);
-
+		setCallback(callback);
 		//添加各种组件添加各种组件
 		initFrame();
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+		
 	}
 	
 	public void setCallback(Callback callback) {
@@ -57,12 +62,12 @@ public void initFrame() {
         //两个标签按钮，显示运算过程和计算结果。
 		processLabel.setForeground(Color.WHITE);
 		processLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		processLabel.setFont(new Font("黑体", Font.PLAIN, 50));
+		processLabel.setFont(new Font("黑体", Font.PLAIN, 30));
 
 		
 		resultLabel.setForeground(Color.WHITE);
 		resultLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		resultLabel.setFont(new Font("黑体", Font.PLAIN, 50));
+		resultLabel.setFont(new Font("黑体", Font.PLAIN, 30));
 
 		//把两个标签添加到面板上。
 		labelPanel.add(processLabel);
@@ -80,16 +85,37 @@ public void initFrame() {
 
 		//添加按钮。
 		for (int i = 0; i < str.length; i++) {
-			// 按钮的初始化
-			JButton tempButton = new JButton(str[i]);
-			tempButton.setFont(new Font("宋体", Font.PLAIN, 40));
-			tempButton.setBackground(Color.LIGHT_GRAY);
-			if((i+1)%4==0) 
-				tempButton.setBackground(Color.ORANGE);
-			
-			// 给每个按钮添加监听器
-			buttonPanel.add(tempButton);
-			setVisible(true);
+			if(i>=0&&i<=3)  {
+				OpButton opButton = new OpButton(str[i]);
+			    opButton.setResultLabel(resultLabel);
+			    opButton.setProcessLabel(processLabel);
+			    opButton.setCallback(callback);
+				opButton.setFont(new Font("宋体", Font.PLAIN, 40));
+				buttonPanel.add(opButton);
+				if((i+1)%4==0) 
+					opButton.setBackground(Color.ORANGE);
+			}
+			else {
+				if((i+1)%4>=1&&(i+1)%4<=3) {
+					NumberButton numberButton = new NumberButton(str[i]);
+					numberButton.setResultLabel(resultLabel);
+					numberButton.setProcessLabel(processLabel);
+					numberButton.setCallback(callback);
+					numberButton.setFont(new Font("宋体", Font.PLAIN, 40));
+					buttonPanel.add(numberButton);
+				}
+				else {
+					OpButton opButton = new OpButton(str[i]);
+					opButton.setResultLabel(resultLabel);
+					opButton.setProcessLabel(processLabel);
+					opButton.setCallback(callback);
+					opButton.setFont(new Font("宋体", Font.PLAIN, 40));
+					if((i+1)%4==0) 
+						opButton.setBackground(Color.ORANGE); 
+					buttonPanel.add(opButton);
+				}
+			}
+            
 		}
 		
 	}
